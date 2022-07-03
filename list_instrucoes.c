@@ -1,12 +1,6 @@
 ///setando os valores do vetor de instruções
-
+///Iniciando vetor com opcodes/instruções
 //struct para o vetor com informçaão das instruções
-struct nome_instrucoes {
-    char nome_inst[20];
-    int operandos;
-    int opcode;
-    int tamanho;
-};
 
 void inicia_vetor_inst(){
     //valores a serem colocados no vetor

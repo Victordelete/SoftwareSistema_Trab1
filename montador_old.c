@@ -1,3 +1,9 @@
+/*Primeira versão deste trabalho.
+Como as funcionalidades para a segunda versão foram
+complexificadas, será removido a alocação dinâmica,
+dado que os problemas abordados são de pequena escala.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -16,17 +16,8 @@ Desenvolvedores:
 #include <string.h>
 
 #include "pre_processamento.c"
-
-///Iniciando vetor com opcodes/instruções
-//struct para o vetor com informçaão das instruções
-struct nome_instrucoes {
-    char nome_inst[20];
-    int operandos;
-    int opcode;
-    int tamanho;
-};
-struct nome_instrucoes vetor_inst[15]; //tamanho fixo de instruções
-void inicia_vetor_inst();
+#include "pri_passagem.c"
+#include "seg_passagem.c"
 
 ///Função principal
 //int main(char* nome_arquivo, char tipo_abert){
@@ -40,20 +31,16 @@ int main(void){
     //nome do programa recebido
     arq_mont = fopen(nome_arquivo, "r"); //////////LEMBRAR DE RETIRAR ESSA CHAMADA
 
-    //testando se o arquivo foi realmente aberto
+    //testando se o arquivo foi aberto com sucesso
     if(arq_mont == NULL){
         printf("Erro na abertura do arquivo!\n");
         return -1;
     }
 
-    //string para as leituras do arquivo recebido
-    char texto_str[50];
-
-    //variavel para controle do tamanho
-    int i = 1;
-
-    //cada etapa é realizada de forma separada, com um arquivo de saída diferente
+    //cada etapa é realizada de forma separada alterando o vetor de struct
     pre_processamento();
+    pri_passagem();
+    seg_passagem();
 
     return(0);
 }
