@@ -12,12 +12,13 @@ Desenvolvedores:
 */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #include "pre_processamento.c"
 #include "pri_passagem.c"
 #include "seg_passagem.c"
+
+#include "list_instrucoes.c"
 
 ///Função principal
 //int main(char* nome_arquivo, char tipo_abert){
@@ -36,8 +37,20 @@ int main(void){
         printf("Erro na abertura do arquivo!\n");
         return -1;
     }
+    fclose(arq_mont); //fecho arquivo para ser reaberto no módulo
 
-    //cada etapa é realizada de forma separada alterando o vetor de struct
+    //cada etapa é realizada de forma separada recebendo o nome do arquivo
+    list_Instrucao vetor_inst[15];
+    imprimi_teste();
+    /*strcpy(vetor_inst[0].nome_inst, "ADD");
+        vetor_inst[0].operandos = 1;
+        vetor_inst[0].opcode = 1;
+        vetor_inst[0].tamanho = 2;
+
+        printf("%s %d\n", vetor_inst[0].nome_inst, vetor_inst[0].opcode);*/
+    inicia_vetor_inst(vetor_inst);
+    printf("%s", vetor_inst[0].nome_inst);
+
     pre_processamento();
     pri_passagem();
     seg_passagem();

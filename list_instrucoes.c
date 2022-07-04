@@ -1,8 +1,14 @@
-///setando os valores do vetor de instruções
-///Iniciando vetor com opcodes/instruções
-//struct para o vetor com informçaão das instruções
+#include <string.h>
 
-void inicia_vetor_inst(){
+#include "list_instrucoes.h"
+
+void imprimi_teste(){
+    printf("Testando a porra toda.\n");
+    return;
+}
+
+void inicia_vetor_inst(list_Instrucao *vetor_inst){
+//void inicia_vetor_inst(struct list_Instrucao vetor_inst[15]){
     //valores a serem colocados no vetor
     strcpy(vetor_inst[0].nome_inst, "ADD");
         vetor_inst[0].operandos = 1;
@@ -61,4 +67,6 @@ void inicia_vetor_inst(){
         vetor_inst[13].opcode = 14;
         vetor_inst[13].tamanho = 1;
 }
+
+
 
