@@ -39,19 +39,14 @@ int main(void){
     }
     fclose(arq_mont); //fecho arquivo para ser reaberto no módulo
 
-    //cada etapa é realizada de forma separada recebendo o nome do arquivo
-    list_Instrucao vetor_inst[15];
-    imprimi_teste();
-    /*strcpy(vetor_inst[0].nome_inst, "ADD");
-        vetor_inst[0].operandos = 1;
-        vetor_inst[0].opcode = 1;
-        vetor_inst[0].tamanho = 2;
+    ///list_Instrucao vetor_inst[14];
+    ///inicia_vetor_inst(vetor_inst);
 
-        printf("%s %d\n", vetor_inst[0].nome_inst, vetor_inst[0].opcode);*/
-    inicia_vetor_inst(vetor_inst);
-    printf("%s", vetor_inst[0].nome_inst);
+    //função que imprimi
+    ///imprimi_instrucoes(vetor_inst);
 
-    pre_processamento();
+    //cada etapa é realizada de forma separada recebendo o nome do arquivo necessário
+    pre_processamento(nome_arquivo);
     pri_passagem();
     seg_passagem();
 

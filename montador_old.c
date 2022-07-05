@@ -2,6 +2,9 @@
 Como as funcionalidades para a segunda versão foram
 complexificadas, será removido a alocação dinâmica,
 dado que os problemas abordados são de pequena escala.
+
+ARQUIVO ARMAZENADO SOMENTE PARA MODELO DE COMPARAÇÃO COM O DESENVOLVIMENTO FUTURO.
+
 */
 
 #include <stdio.h>

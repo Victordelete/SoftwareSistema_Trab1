@@ -8,8 +8,10 @@ typedef struct listInstrucao{
     int tamanho;
 }list_Instrucao;
 
+//Função para iniciação das propriedades de instrução
 void inicia_vetor_inst(list_Instrucao *vetor_inst);
-//void inicia_vetor_inst(list_Instrucao vetor_inst[15]);
+//void inicia_vetor_inst(list_Instrucao vetor_inst[14]);
 
-void imprimi_teste();
+//função para impressão dessa lista  de instruções
+void imprimi_instrucoes(list_Instrucao *vetor_inst);
 #endif // LIST_INSTRUCAO_INCLUDED

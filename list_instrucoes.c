@@ -1,11 +1,7 @@
 #include <string.h>
+#include <stdio.h>
 
 #include "list_instrucoes.h"
-
-void imprimi_teste(){
-    printf("Testando a porra toda.\n");
-    return;
-}
 
 void inicia_vetor_inst(list_Instrucao *vetor_inst){
 //void inicia_vetor_inst(struct list_Instrucao vetor_inst[15]){
@@ -68,5 +64,12 @@ void inicia_vetor_inst(list_Instrucao *vetor_inst){
         vetor_inst[13].tamanho = 1;
 }
 
+void imprimi_instrucoes( list_Instrucao *vetor_inst){
+    for(int i = 0 ; i<14; i++){
+        printf("%s %d %d %d\n", vetor_inst[i].nome_inst, vetor_inst[i].opcode, vetor_inst[i].operandos, vetor_inst[i].tamanho);
+    }
+    printf("\n");
 
+    return;
+}
 

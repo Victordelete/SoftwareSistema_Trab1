@@ -1,21 +1,17 @@
-;primeiro comentário
-SECTION   TEXT
-INPUT N1
+INPUT     N1  
 INPUT N2 ; texto
-
-; o que era um comentário
-
+  
+;    o    que era um comentário  
+      
 LOAD N1
-ADD N2
-STORE N3
+ADD    N2    
+STORE     N3
 
 
 
-OUTPUT N3
+    OUTPUT     N3
 STOP
-
-SECTION DATA
-N1: SPACE
-N2: SPACE
-N3: SPACE
-N4: CONST 4
+     N1: SPACE
+N2:    SPACE
+N3:    SPACE
+N4:    CONST 4 ; vou assumir que uma label nunca terá espaço entre o nome e o dois pontos
