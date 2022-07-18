@@ -13,7 +13,39 @@ a ser montado.
 #include <stdlib.h>
 #include <string.h>
 
+#include <iostream>
+#include <vector>
+#include <string>
+    using namespace std;
+
+class saidaClass{
+    public:
+        int numLinha; //número da linha no arquivo original
+        string contLinha; //conteúdo da linha
+        saidaClass(){}
+
+        saidaClass(string contLinha, int numLinha){
+            this->numLinha = numLinha;
+            this->contLinha = contLinha;
+        }
+
+        ///setter and getters
+        int getNumLinha(){
+            return this->numLinha;
+        }
+        string getContLinha(){
+            return this->contLinha;
+        }
+        void setNumLinha(int numLinha){
+            this->numLinha = numLinha;
+        }
+        void setContLinha(string contLinha){
+            this->contLinha = contLinha;
+        }
+};
+
 void atualiza_nome_Arquivo(char *arq_sai);
+void imprimiVectorSaidaClass(vector<saidaClass> vectorSaida);
 
 void pre_processamento(char *arq_ent){
     //char arq_ent[] = "arquivo.txt";
@@ -21,6 +53,10 @@ void pre_processamento(char *arq_ent){
     char arq_sai[200]; //tamanho máximo para o arquivo (talvez seja necessário mudar)
     strcpy(arq_sai, arq_ent);
     atualiza_nome_Arquivo(arq_sai);
+
+    vector<saidaClass> vectorSaida;
+    vector<saidaClass>::iterator it;
+        saidaClass modeloSaida;
 
     char linha_ent[100]; //string onde as linhas serão armazenadas.
     char linha_sai[100];
@@ -40,9 +76,11 @@ void pre_processamento(char *arq_ent){
     int ind_ent = 0, ind_sai = 0 ;//indice para as strings de entrada e saída.
     int last_space=0; // marcador de passagem para dois '\n' seguidos
 
+    int numLinha=0;
     while(!feof(pont_arq_ent)){
         //pego uma linha inteira do arquivo de entrada
         fgets(linha_ent, 99, pont_arq_ent);
+        numLinha++;
 
         //handle para eliminação de espaços duplos e comentários
         for(ind_ent= 0; ind_ent<strlen(linha_ent); ind_ent++ ){
@@ -81,10 +119,15 @@ void pre_processamento(char *arq_ent){
         }
         else{
             fputs(linha_sai, pont_arq_sai); //escrevo no arquivo somente os que são linhas não vazias
+            modeloSaida.setContLinha(linha_sai);
+            modeloSaida.setNumLinha(numLinha);
+            vectorSaida.push_back(modeloSaida);
         }
 
-        ind_sai=0; //corrijo o índice de saíde.
+        ind_sai=0; //corrijo o índice de saída.
     }
+
+    imprimiVectorSaidaClass(vectorSaida);
 
     fclose(pont_arq_ent);
     fclose(pont_arq_sai);
@@ -93,10 +136,16 @@ void pre_processamento(char *arq_ent){
 }
 
 void atualiza_nome_Arquivo(char *arq_sai){
-        char *prefixo_p = ".pre"; //para esse arquivo de preprocessamento
+        char prefixo_p[] = ".pre"; //para esse arquivo de preprocessamento
         for(int i=0; i<4; i++){
             arq_sai[strlen(arq_sai) - 4 +i] = prefixo_p[i];
         }
         return;
+}
+
+void imprimiVectorSaidaClass(vector<saidaClass> vectorSaida){
+    for(int i=0; i<vectorSaida.size(); i++){
+        cout<< vectorSaida[i].getNumLinha() << " " << vectorSaida[i].getContLinha();
+    }
 }
 

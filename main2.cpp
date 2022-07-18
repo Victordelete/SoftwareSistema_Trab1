@@ -14,7 +14,7 @@ Desenvolvedores:
 #include <stdio.h>
 #include <string.h>
 
-#include "pre_processamento.c"
+#include "pre_processamento2.cpp"
 #include "pri_passagem.c"
 #include "seg_passagem.c"
 
@@ -22,7 +22,7 @@ Desenvolvedores:
 
 ///Função principal
 //int main(char* nome_arquivo, char tipo_abert){
-int main(void){
+int main(){
     //nome do arquivo a ser compilado mudar depois
     char nome_arquivo[] = "arquivo.txt";
 
@@ -38,12 +38,6 @@ int main(void){
         return -1;
     }
     fclose(arq_mont); //fecho arquivo para ser reaberto no módulo
-
-    ///list_Instrucao vetor_inst[14];
-    ///inicia_vetor_inst(vetor_inst);
-
-    //função que imprimi
-    ///imprimi_instrucoes(vetor_inst);
 
     //cada etapa é realizada de forma separada recebendo o nome do arquivo necessário
     pre_processamento(nome_arquivo);
