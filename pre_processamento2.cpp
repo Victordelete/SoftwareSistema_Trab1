@@ -15,6 +15,7 @@ a ser montado.
 
 #include <iostream>
 #include <vector>
+#include <sstream>
 #include <string>
     using namespace std;
 
@@ -46,6 +47,7 @@ class saidaClass{
 
 void atualiza_nome_Arquivo(char *arq_sai);
 void imprimiVectorSaidaClass(vector<saidaClass> vectorSaida);
+void diretivaPreProcessamento(vector<saidaClass> vectorSaida);
 
 void pre_processamento(char *arq_ent){
     //char arq_ent[] = "arquivo.txt";
@@ -127,7 +129,8 @@ void pre_processamento(char *arq_ent){
         ind_sai=0; //corrijo o índice de saída.
     }
 
-    imprimiVectorSaidaClass(vectorSaida);
+    //imprimiVectorSaidaClass(vectorSaida);
+    diretivaPreProcessamento(vectorSaida);
 
     fclose(pont_arq_ent);
     fclose(pont_arq_sai);
@@ -143,9 +146,52 @@ void atualiza_nome_Arquivo(char *arq_sai){
         return;
 }
 
+void diretivaPreProcessamento(vector<saidaClass> vectorSaida){
+    //crio as diretivas utilizas no pré-processamento
+    //desta forma estou lidando somente com as diretivas abordadas no pré-processamento.
+    string strIf = "IF";
+    string strEqu = "EQU";
+
+    //vector utilizado para guardar as diretivas EQU para sstring e NumLinha para seu valor
+    vector<saidaClass> vectorDir;
+    vector<saidaClass>::iterator it;
+            saidaClass modeloSaida;
+
+    string strTemp; //string temporaria pra análise
+
+    bool secaoTextoB =false; //marcador de antes e depois da SECAO TEXTO
+
+    int ind = 0;
+    for(int i=0; i<vectorSaida.size(); i++){
+        strTemp = vectorSaida[i].getContLinha() ; //atualizo variável temporária
+
+        if(strTemp == "SECAO TEXTO\n")
+            secaoTextoB = true;
+
+        //análise antes do SECAO TEXTO
+        if(!secaoTextoB){
+            //as diretivas sempre são corretas, logo posso simplesmente assumir que foi feito corretamente
+            ind = strTemp.find(" ");
+            modeloSaida.setContLinha(strTemp.substr(0,ind-1));
+            stringstream(strTemp.substr(ind+5, strTemp.size()))>>ind;
+            modeloSaida.setNumLinha(ind);
+            vectorDir.push_back(modeloSaida);
+        }
+        //análise após a SECAO TEXTO
+        else{
+            ind = strTemp.find(" ");
+            strTemp = strTemp.substr(0, ind);
+        }
+    }
+    imprimiVectorSaidaClass(vectorDir);
+
+    return;
+}
+
 void imprimiVectorSaidaClass(vector<saidaClass> vectorSaida){
     for(int i=0; i<vectorSaida.size(); i++){
-        cout<< vectorSaida[i].getNumLinha() << " " << vectorSaida[i].getContLinha();
+        cout<< vectorSaida[i].getNumLinha() << " " << vectorSaida[i].getContLinha()<<"\n";
     }
+    return;
 }
 
