@@ -154,6 +154,7 @@ void diretivaPreProcessamento(vector<saidaClass> vectorSaida){
 
     //vector utilizado para guardar as diretivas EQU para sstring e NumLinha para seu valor
     vector<saidaClass> vectorDir;
+    vector<saidaClass> vectorSaidaAtu; //o vetor de saída será atualizado
     vector<saidaClass>::iterator it;
             saidaClass modeloSaida;
 
@@ -162,7 +163,10 @@ void diretivaPreProcessamento(vector<saidaClass> vectorSaida){
     bool secaoTextoB =false; //marcador de antes e depois da SECAO TEXTO
 
     int ind = 0;
+    int i = -1 ;
     for(int i=0; i<vectorSaida.size(); i++){
+    //while(i<vectorSaida.size()){
+        //i++;
         strTemp = vectorSaida[i].getContLinha() ; //atualizo variável temporária
 
         if(strTemp == "SECAO TEXTO\n")
@@ -175,22 +179,43 @@ void diretivaPreProcessamento(vector<saidaClass> vectorSaida){
             modeloSaida.setContLinha(strTemp.substr(0,ind-1));
             stringstream(strTemp.substr(ind+5, strTemp.size()))>>ind;
             modeloSaida.setNumLinha(ind);
-            vectorDir.push_back(modeloSaida);
+            vectorDir.push_back(modeloSaida); //atualizo minha listas de rótulos para essas diretivas
+
         }
         //análise após a SECAO TEXTO
         else{
             ind = strTemp.find(" ");
-            strTemp = strTemp.substr(0, ind);
+            strTemp = strTemp.substr(0, ind); //pego o primeiro operando da lista
+                if(strTemp == strIf){ // caso encontre a diretiva
+                    strTemp = vectorSaida[i].getContLinha();
+                    strTemp = strTemp.substr(ind+1, strTemp.size()-4); //pego o rótulo
+                    //percorro o vector de rótulos de diretivas
+                    for(int j=0; j<vectorDir.size(); j++){
+                        if(strTemp == vectorDir[j].getContLinha()){ //caso o rótulo exista
+                            if(vectorDir[j].getNumLinha() == 0){ //caso o conteudo seja zero pulo uma linha na cópia
+                                i++;
+                            }
+                            else{
+                                continue; //copio a próxima linha caso o conteúdo do EQU seja diferene de 0
+                            }
+                            break; //caso encontre eu paro o for
+                        }
+                    }
+                }
+                else{ //caso não tenha nenhuma diretiva ou a diretiva seja positiva
+                    vectorSaidaAtu.push_back(vectorSaida[i]);
+                }
         }
     }
-    imprimiVectorSaidaClass(vectorDir);
+    //imprimiVectorSaidaClass(vectorDir);
+    imprimiVectorSaidaClass(vectorSaidaAtu);
 
     return;
 }
 
 void imprimiVectorSaidaClass(vector<saidaClass> vectorSaida){
     for(int i=0; i<vectorSaida.size(); i++){
-        cout<< vectorSaida[i].getNumLinha() << " " << vectorSaida[i].getContLinha()<<"\n";
+        cout<< vectorSaida[i].getNumLinha() << " " << vectorSaida[i].getContLinha();//<< "\n";
     }
     return;
 }

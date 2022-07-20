@@ -1,20 +1,22 @@
 
-L1:   EQU    1
+L1:   EQU    0
 
-L2: EQU 0; como andas? 
+L2: EQU 1; como andas? 
 SECAO TEXTO
-INPUT     N1  
-input n2 ; texto
+INPUT     N1
+input n2; texto
   
 ;    o    que era um comentário  
-      
-LOad N1
-ADD    N2    
+
+if l2
+LOad TESTE_l2
+ADD    N2
 STorE     N3
 
+if L1
 
 
-    OUTPUT     N3
+    OUTPUT     teste_l1
 STOP
 SECAO DADOS ; SEcao dados sempre no final
      N1: SPACE
