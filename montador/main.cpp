@@ -14,7 +14,7 @@ Desenvolvedores:
 #include <stdio.h>
 #include <string.h>
 
-#include "pre_processamento2.cpp"
+#include "pre_processamento.cpp"
 #include "pri_passagem.c"
 #include "seg_passagem.c"
 
