@@ -17,19 +17,33 @@ Desenvolvedores:
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <fstream>
 #include <vector>
 using namespace std;
 
-int main(){
-    string str_arq1("fat mod A.v");
-    string str_arq2("fat mod B.v");
+int main( int argc, char *argv[], char *envp[] ){
+//int main(){
+    //teste de arqumentos
+    if(argc < 3){
+        cout<<"Quantidade incorreta de argumentos.\n";
+        ///return -1;
+    }
+
+    string str_arq1 = argv[1];
+    string str_arq2 = argv[2];
+
+    //strings que acompanham o programa para teste
+    //string str_arq1("modA.o");
+    //string str_arq2("modB.o");
+
     string line;
     vector<string> arq1_vector;
     vector<string> arq2_vector;
 
     //abertura dos arquivos recebidos
     ifstream arq1(str_arq1.c_str());
+
     //casonão seja possível abrir o arquivo 1
         if(!arq1){
             cout<<"Nao foi possivel abrir o arquivo: "<< str_arq1 << endl;
@@ -80,7 +94,32 @@ int main(){
                                           mont2);
 
 
+    //imprimiVecInt(ligFinal, "SAIDA:");
+
+    string str_arqSaida = "ArquivoLigado.o";
+    string saida;
+    ofstream arqSaida;
+    arqSaida.open(str_arqSaida.c_str());
+
+    int i =0;
+    string temp;
+    std::ostringstream sstream;
+
+    while(true){
+        sstream << ligFinal[i];
+        //cout<<sstream.str()<<"\n";
+        saida = saida + sstream.str();
+            if(i == ligFinal.size())
+                break;
+        saida = saida + " ";
+        sstream.str("");
+        i++;
+    }
+
+    cout<<saida;
+    arqSaida<<saida;
+
+    arqSaida.close();
+
     return 0;
 }
-
-
