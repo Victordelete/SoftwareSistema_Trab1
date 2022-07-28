@@ -24,7 +24,6 @@ using namespace std;
 int main(){
     string str_arq1("fat mod A.v");
     string str_arq2("fat mod B.v");
-    imprimi();
     string line;
     vector<string> arq1_vector;
     vector<string> arq2_vector;
@@ -60,12 +59,25 @@ int main(){
     //Inicialmente para dois arquivos são necessários somente tabUso1 e tabDef2, porém vou iniciar tudo
     //para facilitar a detecção de erros.
     vector<tabela> tabUso1 = iniciaTabUso(arq1_vector);
+        //imprimi(tabUso1, "TABELA USO");
     vector<tabela> tabDef1 = iniciaTabDef(arq1_vector);
+        //imprimi(tabDef1, "TABELA DEF");
     vector<int> mont1= iniciaTabMont(arq1_vector);
+        //imprimiVecInt(mont1, "CODIGO OBJETO");
 
     vector<tabela> tabUso2 = iniciaTabUso(arq2_vector);
+        //imprimi(tabUso2, "TABELA USO");
     vector<tabela> tabDef2 = iniciaTabDef(arq2_vector);
+        //imprimi(tabDef2, "TABELA DEF");
     vector<int> mont2= iniciaTabMont(arq2_vector);
+        //imprimiVecInt(mont2, "CODIGO OBJETO");
+
+    vector<int> ligFinal = iniciaTabMont (tabUso1,
+                                          tabDef1,
+                                          mont1,
+                                          tabUso2,
+                                          tabDef2,
+                                          mont2);
 
 
     return 0;

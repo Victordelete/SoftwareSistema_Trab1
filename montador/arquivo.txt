@@ -1,12 +1,12 @@
 
-L1:   EQU    0
+L1:   EQU    1
 
-L2: EQU 1; como andas? 
+L2: EQU 1; como andas?
 SECAO TEXTO
 INPUT     N1
 input n2; texto
-  
-;    o    que era um comentário  
+
+;    o    que era um comentário
 
 if l2
 LOad TESTE_l2
@@ -22,4 +22,4 @@ SECAO DADOS ; SEcao dados sempre no final
      N1: SPACE
 N2:    space
 N3:    SPaCE
-N4:    consT 4 ; vou assumir que uma label nunca terá espaço entre o nome e 
+N4:    consT 4 ; vou assumir que uma label nunca terá espaço entre o nome e

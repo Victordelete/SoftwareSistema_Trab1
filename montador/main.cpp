@@ -30,7 +30,7 @@ int main(){
     FILE *arq_mont;
 
     //nome do programa recebido
-    arq_mont = fopen(nome_arquivo, "r"); //////////LEMBRAR DE RETIRAR ESSA CHAMADA
+    arq_mont = fopen(nome_arquivo, "r");//////////LEMBRAR DE RETIRAR ESSA CHAMADA
 
     //testando se o arquivo foi aberto com sucesso
     if(arq_mont == NULL){

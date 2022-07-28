@@ -15,7 +15,7 @@ a ser montado.
 
 #include <iostream>
 #include <vector>
-#include <sstream>i
+#include <sstream>
 #include <string>
     using namespace std;
 
