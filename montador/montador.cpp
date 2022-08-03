@@ -4,11 +4,16 @@ disciplina de Software Básico (Software de Sistema)
 na Universidade de Brasília.
 
 Tempo Gasto:
-    Aproximadamente 15 horas.
+    Aproximadamente 17 horas.
 
 Desenvolvedores:
     Daniel - xxxxxxxxx
     Victor Hugo Marques Vieira - 150047649
+
+    a chamada do programa é do tipo:
+    ./montador -o nomeArquivoEntrada nomeArquivoSaida
+
+    -p ou -o: o primeiro para processar o segundo para montar o arquivo recebido
 */
 
 #include <stdio.h>
@@ -22,7 +27,12 @@ Desenvolvedores:
 
 ///Função principal
 //int main(char* nome_arquivo, char tipo_abert){
-int main(){
+int main( int argc, char *argv[], char *envp[] ){
+    //teste de arqumentos
+    if(argc != 4){
+        cout<<"Quantidade incorreta de argumentos.\n";
+        return -1;
+    }
     //nome do arquivo a ser compilado mudar depois
     char nome_arquivo[] = "arquivo.txt";
 

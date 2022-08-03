@@ -137,6 +137,7 @@ vector<int> iniciaTabMont(vector<tabela> tabUso1,
         //caso chegue até o final do código objeto
         if(i >= mont2.size())
             break;
+
         //caso diretiva seja COPY corrijo os três próximos
         if(mont2[i] == 9){
             i++; if(mont2[i]!= 0) mont2[i] = mont2[i]+corr2;

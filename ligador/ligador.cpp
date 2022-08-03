@@ -6,11 +6,22 @@ na Universidade de Brasília.
 Ligador
 
 Tempo Gasto:
-    Aproximadamente 4 horas.
+    Aproximadamente 6 horas.
 
 Desenvolvedores:
     Daniel - xxxxxxxxx
     Victor Hugo Marques Vieira - 150047649
+
+    Modelo Chamada:
+    ./ligador arquivoEntrada1.txt arquivoEntrada2.txt
+    A saída será um arquivo chamada arquivoLigado.o
+
+    O ligador recebe o valor 0 nos endereços de memória ainda não montados
+    por motivo de referência.
+    Importante que as tabelas de def tragam a definição do próprio módulo.
+        Exemplo:
+        TABELA DEF
+        MOD_A 0
 */
 
 #include "functions.cpp"
@@ -23,11 +34,10 @@ Desenvolvedores:
 using namespace std;
 
 int main( int argc, char *argv[], char *envp[] ){
-//int main(){
     //teste de arqumentos
     if(argc < 3){
         cout<<"Quantidade incorreta de argumentos.\n";
-        ///return -1;
+        return -1;
     }
 
     string str_arq1 = argv[1];
@@ -106,11 +116,12 @@ int main( int argc, char *argv[], char *envp[] ){
     std::ostringstream sstream;
 
     while(true){
+        if(i == ligFinal.size())
+            break;
         sstream << ligFinal[i];
         //cout<<sstream.str()<<"\n";
         saida = saida + sstream.str();
-            if(i == ligFinal.size())
-                break;
+
         saida = saida + " ";
         sstream.str("");
         i++;
