@@ -9,12 +9,16 @@ Tempo Gasto:
     Aproximadamente 6 horas.
 
 Desenvolvedores:
-    Daniel - xxxxxxxxx
-    Victor Hugo Marques Vieira - 150047649
+    Daniel do Carmo Figueirêdo -  160057922
+    Victor Hugo Marques - 150047649
 
-    Modelo Chamada:
-    ./ligador arquivoEntrada1.txt arquivoEntrada2.txt
-    A saída será um arquivo chamada arquivoLigado.o
+
+    Modelo de chamada no terminal windows utilizado para os testes realizados:
+    ./ligador arquivoEntrada1.o arquivoEntrada2.o
+        A saída será um arquivo chamada arquivoLigado.o para todos os casos.
+        optou-se por esse padrão porque a descrição do trabalho não trás um padrão de nome
+        para o ligador.
+
 
     O ligador recebe o valor 0 nos endereços de memória ainda não montados
     por motivo de referência.
@@ -22,6 +26,8 @@ Desenvolvedores:
         Exemplo:
         TABELA DEF
         MOD_A 0
+
+        Os arquivos de testes seguem o padrão, consultar para referência.
 */
 
 #include "functions.cpp"

@@ -45,16 +45,15 @@ class saidaClass{
         }
 };
 
-void atualiza_nome_Arquivo(char *arq_sai);
 void imprimiVectorSaidaClass(vector<saidaClass> vectorSaida);
-void diretivaPreProcessamento(vector<saidaClass> vectorSaida);
+void diretivaPreProcessamento(vector<saidaClass> vectorSaida , char *arq_sai);
 
-void pre_processamento(char *arq_ent){
+void pre_processamento(char *arq_ent, char *arq_sai){
     //char arq_ent[] = "arquivo.txt";
 
-    char arq_sai[200]; //tamanho máximo para o arquivo (talvez seja necessário mudar)
-    strcpy(arq_sai, arq_ent);
-    atualiza_nome_Arquivo(arq_sai);
+    //char arq_sai[200]; //tamanho máximo para o arquivo (talvez seja necessário mudar)
+    //strcpy(arq_sai, arq_ent);
+    //atualiza_nome_Arquivo(arq_sai);
 
     vector<saidaClass> vectorSaida;
     vector<saidaClass>::iterator it;
@@ -65,15 +64,10 @@ void pre_processamento(char *arq_ent){
 
     // ponteiro para arquivo onde ficará o arquivo base
     FILE *pont_arq_ent;
-    FILE *pont_arq_sai;
+
+    cout<<"\n"<<arq_sai<<"\n";
 
     pont_arq_ent = fopen(arq_ent, "r"); //arquivo sempre será aberto com sucesso pois já foi testado com antecedência.
-    pont_arq_sai = fopen(arq_sai, "w+"); //crio o arquivo de saída
-
-    if(pont_arq_sai == NULL){
-        printf("Erro na abertura do arquivo de saída!\n");
-        return;
-    }
 
     int ind_ent = 0, ind_sai = 0 ;//indice para as strings de entrada e saída.
     int last_space=0; // marcador de passagem para dois '\n' seguidos
@@ -120,7 +114,6 @@ void pre_processamento(char *arq_ent){
             continue;
         }
         else{
-            fputs(linha_sai, pont_arq_sai); //escrevo no arquivo somente os que são linhas não vazias
             modeloSaida.setContLinha(linha_sai);
             modeloSaida.setNumLinha(numLinha);
             vectorSaida.push_back(modeloSaida);
@@ -130,23 +123,14 @@ void pre_processamento(char *arq_ent){
     }
 
     //imprimiVectorSaidaClass(vectorSaida);
-    diretivaPreProcessamento(vectorSaida);
+    diretivaPreProcessamento(vectorSaida, arq_sai);
 
     fclose(pont_arq_ent);
-    fclose(pont_arq_sai);
 
     return;
 }
 
-void atualiza_nome_Arquivo(char *arq_sai){
-        char prefixo_p[] = ".pre"; //para esse arquivo de preprocessamento
-        for(int i=0; i<4; i++){
-            arq_sai[strlen(arq_sai) - 4 +i] = prefixo_p[i];
-        }
-        return;
-}
-
-void diretivaPreProcessamento(vector<saidaClass> vectorSaida){
+void diretivaPreProcessamento(vector<saidaClass> vectorSaida , char *arq_sai){
     //crio as diretivas utilizas no pré-processamento
     //desta forma estou lidando somente com as diretivas abordadas no pré-processamento.
     string strIf = "IF";
@@ -207,8 +191,16 @@ void diretivaPreProcessamento(vector<saidaClass> vectorSaida){
                 }
         }
     }
-    //imprimiVectorSaidaClass(vectorDir);
     imprimiVectorSaidaClass(vectorSaidaAtu);
+
+    FILE *pont_arq_sai;
+    pont_arq_sai = fopen(arq_sai, "w+"); //crio o arquivo de saída
+
+    for(int i=0; i<vectorSaidaAtu.size(); i++){
+        fputs(vectorSaidaAtu[i].getContLinha().c_str(), pont_arq_sai); //escrevo no arquivo somente os que são linhas não vazias
+    }
+
+        fclose(pont_arq_sai);
 
     return;
 }

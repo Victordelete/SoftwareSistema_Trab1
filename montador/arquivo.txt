@@ -1,7 +1,7 @@
 
-L1:   EQU    1
+L1:   EQU    0
 
-L2: EQU 1; como andas?
+L2: EQU 0; como andas?
 SECAO TEXTO
 INPUT     N1
 input n2; texto

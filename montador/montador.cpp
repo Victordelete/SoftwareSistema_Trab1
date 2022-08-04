@@ -28,13 +28,23 @@ Desenvolvedores:
 ///Função principal
 //int main(char* nome_arquivo, char tipo_abert){
 int main( int argc, char *argv[], char *envp[] ){
+
     //teste de arqumentos
     if(argc != 4){
         cout<<"Quantidade incorreta de argumentos.\n";
         return -1;
     }
-    //nome do arquivo a ser compilado mudar depois
-    char nome_arquivo[] = "arquivo.txt";
+
+    //nome do arquivo a ser compilado
+    char tipo = argv[1][1];
+    char nome_arquivo[99]; strcpy(nome_arquivo, argv[2]);
+    char nome_arquivo_saida[99]; strcpy(nome_arquivo_saida, argv[3]);
+
+    if(tipo != 'p' && tipo != 'o'){
+        cout<<"Tipo de chamada não conhecido.\n\n";
+        return -1;
+    }
+
 
     // ponteiro para arquivo onde ficará o arquivo base
     FILE *arq_mont;
@@ -50,9 +60,7 @@ int main( int argc, char *argv[], char *envp[] ){
     fclose(arq_mont); //fecho arquivo para ser reaberto no módulo
 
     //cada etapa é realizada de forma separada recebendo o nome do arquivo necessário
-    pre_processamento(nome_arquivo);
-    pri_passagem();
-    seg_passagem();
+    pre_processamento(nome_arquivo, nome_arquivo_saida);
 
     return(0);
 }
