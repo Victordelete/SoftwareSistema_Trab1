@@ -1,33 +1,11 @@
 #ifndef functions
 #define functions
 
-//Classes
-typedef struct Tabela{
-    //propriedades
-    string simbolo;
-    int valor;
-}tabela;
+//Função recebe string com o codigo objeto e retorna vector<int> com as instruções
+//e endereços.
+vector<int> convertInteiro(string strCodigo);
 
-//função que imprime as tabelas
-void imprimi(vector<tabela> tab, string tipImpressao);
-void imprimiVecInt(vector<int> vecSaida, string tipImpressao);
-
-//funão que retorna a tabela de uso
-vector<tabela> iniciaTabUso(vector<string> arq_vector);
-
-//função que retorna a tabela de definição
-vector<tabela> iniciaTabDef(vector<string> arq_vector);
-
-//função que retorna a pré montagem dos módulos
-vector<int> iniciaTabMont(vector<string> arq_vector);
-
-//função que faz a ligação final das tabelas construídas
-vector<int> iniciaTabMont(vector<tabela> tabUso1,
-                          vector<tabela> tabDef1,
-                          vector<int> mont1,
-                          vector<tabela> tabUso2,
-                          vector<tabela> tabDef2,
-                          vector<int> mont2
-                          );
+//Função principal de interpretação da tradução
+vector<string> tradutor(vector<int> vecCodigo);
 
 #endif // functions
