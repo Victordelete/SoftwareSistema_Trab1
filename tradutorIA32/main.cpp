@@ -59,5 +59,17 @@ int main( ){
 
     vector<string> codigoTraduzido = tradutor(codigoInteiro);
 
+    //Criando arquivo de saída
+    string str_arqSaida = str_arq1.substr(0, str_arq1.size()-3) + "s";
+    string saida;
+    ofstream arqSaida;
+    arqSaida.open(str_arqSaida.c_str());
+
+    for(const auto &linha : codigoTraduzido){
+        arqSaida<<linha;
+    }
+
+    arqSaida.close();
+
     return 0;
 }

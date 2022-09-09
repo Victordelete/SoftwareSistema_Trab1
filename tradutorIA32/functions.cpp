@@ -62,7 +62,7 @@ vector<string> tradutor(vector<int> vecCodigo){
         if(vecCodigo[ind] == 14){
             vecSaida = geraSemArgumento(vecSaida, vecCodigo[ind]);
             ind= ind+1;
-            continue;
+            break; //Se achar um break para o loop e vou para o loop de dados
         }
 
         //Caso que o opcode recebe 2 argumentos: COPY, S_INPUT, S_OUTPUT
@@ -78,6 +78,28 @@ vector<string> tradutor(vector<int> vecCodigo){
             continue;
         }
     }
+
+    //Lido com a secao .data
+    vecSaida.push_back("section .data ; CONST\n");
+    for(int i =ind; i<vecCodigo.size(); i++){
+        if(vecCodigo[i]!= 0){
+            vecSaida = sectionDataHandle(vecSaida, i, vecCodigo[i]);
+        }
+    }
+    //Adiciono as constantes string de resulado
+    vecSaida.push_back("\n     MsgLidos1 db \"Foram lidos/escritos \"\n");
+    vecSaida.push_back("     lenMsgLidos1 equ $ - MsgLidos1\n");
+    vecSaida.push_back("     MsgLidos2 db \" bytes\" \n");
+    vecSaida.push_back("     lenMsgLidos2 equ $ - MsgLidos2\n\n");
+
+    //Lido com a secao .bss
+    vecSaida.push_back("section .bss ; SPACE\n");
+    for(int i =ind; i<vecCodigo.size(); i++){
+        if(vecCodigo[i]== 0){
+            vecSaida = sectionBssHandle(vecSaida, i, vecCodigo[i]);
+        }
+    }
+
     imprimiVecStr(vecSaida);
     return vecSaida;
 }

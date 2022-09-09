@@ -13,6 +13,12 @@ vector<string> geraDoisArgumento(vector<string> vecSaida, int arg1,int arg2, int
 //Função converte int para string com representação variável
 string convIntStr(int arg);
 
+//Função para gerar secao .data
+vector<string> sectionDataHandle(vector<string> vecSaida,int ind,  int arg1);
+
+//Função para gerar secao .bss
+vector<string> sectionBssHandle (vector<string> vecSaida,int ind, int arg1);
+
 #endif // functionsSelec
 
 
