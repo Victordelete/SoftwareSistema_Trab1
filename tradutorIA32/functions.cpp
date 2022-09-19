@@ -20,7 +20,8 @@ void imprimiVecStr(vector<string> vecSaida){
 //Inicia o vetor de resultado para a tradução
 vector<string> iniciaVector(vector<string> vecSaida){
     //Essa função irá adicionar também as funções inicia
-    string temp = "section .text\n\nglobal _start\n\n_start:\n\n";
+    //string temp = "section .text\n\nglobal _start\n\n_start:\n\n";
+    string temp = "\n\n_start:\n\n";
 
     vecSaida.insert( vecSaida.begin() , temp);
 
@@ -86,11 +87,14 @@ vector<string> tradutor(vector<int> vecCodigo){
             vecSaida = sectionDataHandle(vecSaida, i, vecCodigo[i]);
         }
     }
-    //Adiciono as constantes string de resulado
-    vecSaida.push_back("\n     MsgLidos1 db \"Foram lidos/escritos \"\n");
+    ///CONSTANTES DE IMPRESSÃO
+    vecSaida.push_back("\n");
+    vecSaida.push_back("     MsgLidos1 db \"Foram lidos/escritos \"\n");
     vecSaida.push_back("     lenMsgLidos1 equ $ - MsgLidos1\n");
-    vecSaida.push_back("     MsgLidos2 db \" bytes\" \n");
-    vecSaida.push_back("     lenMsgLidos2 equ $ - MsgLidos2\n\n");
+    vecSaida.push_back("     MsgLidos2 db \" bytes\", 0dH, 0aH \n");
+    vecSaida.push_back("     lenMsgLidos2 equ $ - MsgLidos2\n");
+    vecSaida.push_back("     lineFeed   db 0dH, 0aH\n");
+    vecSaida.push_back("     lenLineFeed equ $ - lineFeed\n\n");
 
     //Lido com a secao .bss
     vecSaida.push_back("section .bss ; SPACE\n");
@@ -100,6 +104,23 @@ vector<string> tradutor(vector<int> vecCodigo){
         }
     }
 
-    imprimiVecStr(vecSaida);
-    return vecSaida;
+    ///VARIAVEIS DAS FUNÇÕES
+    vecSaida.push_back("\n");
+    vecSaida.push_back("     ind   resb 1        ;utilizado para o indice dos loops\n");
+    vecSaida.push_back("     temp    resd 1      ;utilizado para impressão leitura temporaria\n");
+    vecSaida.push_back("     valorOutput resd 1  ;utilizado para valores na escrita;\n");
+    vecSaida.push_back("     valorInput resd 1   ;utilizado para valores da leitura\n");
+    vecSaida.push_back("     buffer   resd 20     ;espaço extra para mostrar números grandes e strings\n\n");
+
+    vector<string> vecBaseIo;
+    vecBaseIo = insereBaseIO();
+
+     for(const auto &linha : vecSaida){
+        vecBaseIo.push_back(linha);
+    }
+    //vecBaseio.push_back(vecSaida);
+    //vecSaida.insert( vecSaida.begin() , vecBaseIo);
+
+    imprimiVecStr(vecBaseIo);
+    return vecBaseIo;
 }

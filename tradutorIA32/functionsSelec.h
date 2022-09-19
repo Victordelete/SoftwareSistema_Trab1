@@ -19,6 +19,9 @@ vector<string> sectionDataHandle(vector<string> vecSaida,int ind,  int arg1);
 //Função para gerar secao .bss
 vector<string> sectionBssHandle (vector<string> vecSaida,int ind, int arg1);
 
+//Função insere as funções desenvolvidas em x86
+vector<string> insereBaseIO(void );
+
 #endif // functionsSelec
 
 

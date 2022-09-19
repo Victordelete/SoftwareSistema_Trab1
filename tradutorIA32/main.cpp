@@ -5,9 +5,6 @@ na Universidade de Brasília.
 
 Tradutor de código máquina para IA32.
 
-Tempo Gasto:
-
-
 Desenvolvedores:
     Daniel do Carmo Figueirêdo -  160057922
     Victor Hugo Marques - 150047649
