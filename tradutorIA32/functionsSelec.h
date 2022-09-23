@@ -12,6 +12,7 @@ vector<string> geraDoisArgumento(vector<string> vecSaida, int arg1,int arg2, int
 
 //Função converte int para string com representação variável
 string convIntStr(int arg);
+string convIntStrLabel(int arg);
 
 //Função para gerar secao .data
 vector<string> sectionDataHandle(vector<string> vecSaida,int ind,  int arg1);
@@ -19,8 +20,14 @@ vector<string> sectionDataHandle(vector<string> vecSaida,int ind,  int arg1);
 //Função para gerar secao .bss
 vector<string> sectionBssHandle (vector<string> vecSaida,int ind, int arg1);
 
+//Função para gerar seção .bss com SPACE X
+vector<string> sectionBssHandleX (vector<string> vecSaida,int ind, int arg1);
+
 //Função insere as funções desenvolvidas em x86
 vector<string> insereBaseIO(void );
+
+//Função lida com os jumps
+vector<string> geraDeslocamento(vector<string> vecSaida, vector<int> vecInd, int arg1, int arg2);
 
 #endif // functionsSelec
 

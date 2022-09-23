@@ -1,4 +1,4 @@
-//Módulo de definição das funções utilizadas no ligador
+//Módulo de definição das funções utilizadas no tradutor
 
 #include <iostream>
 #include <vector>
@@ -15,6 +15,16 @@ string convIntStr(int arg){
     ss << arg;
     string str = ss.str();
     str = "VAR_"+str;
+
+    return str;
+}
+
+//Função converte int para string com representação variável
+string convIntStrLabel(int arg){
+    stringstream ss;
+    ss << arg;
+    string str = ss.str();
+    str = "LABEL_"+str;
 
     return str;
 }
@@ -65,6 +75,42 @@ vector<string> geraUmArgumento(vector<string> vecSaida, int arg1, int arg2){
     return vecSaida;
 }
 
+//Função lida com os jumps e deslocamentos de código
+vector<string> geraDeslocamento(vector<string> vecSaida, vector<int> vecInd, int arg1, int arg2){
+    string strArg2 = convIntStrLabel(arg2);
+
+    //correcao do indice
+    int temp;
+    for(int i =0; i<vecInd.size(); i++){
+        if(arg2 == vecInd[i]){
+            temp = i+1;
+            break;
+        }
+    }
+
+    //Switch para a instrução recebida
+    switch ( arg1 ){
+    case 5:
+        vecSaida.insert(vecSaida.begin()+temp, strArg2+":\n");
+        vecSaida.push_back("    jmp "+strArg2+"\n\n");
+        break;
+    case 6:
+        vecSaida.insert(vecSaida.begin()+temp, strArg2+":\n");
+        vecSaida.push_back("    cmp edx, dword 0\n    jl "+strArg2+"\n\n");
+        break;
+    case 7:
+        vecSaida.insert(vecSaida.begin()+temp, strArg2+":\n");
+        vecSaida.push_back("    cmp edx, dword 0\n    jg "+strArg2+"\n\n");
+        break;
+    case 8:
+        vecSaida.insert(vecSaida.begin()+temp, strArg2+":\n");
+        vecSaida.push_back("    cmp edx, dword 0\n    jz "+strArg2+"\n\n");
+        break;
+    }
+
+    return vecSaida;
+}
+
 //Função análisa as funções assembly qye recebem 2 argumentos: COPY, SINPUT, SOUTPUT
 vector<string> geraDoisArgumento(vector<string> vecSaida, int arg1, int arg2, int arg3){
     string strArg2 = convIntStr(arg2);
@@ -74,37 +120,13 @@ vector<string> geraDoisArgumento(vector<string> vecSaida, int arg1, int arg2, in
     switch ( arg1 )
       {
         case 9:
-            vecSaida.push_back("    xchg "+strArg2+", "+strArg3+" ; COPY\n");
+            vecSaida.push_back("    mov eax, ["+strArg2+"]\n    mov ["+strArg3+"], EAX  ;COPY\n\n");
             break;
-        case 15:
-            vecSaida.push_back("    push "+strArg2+"\n"+
-                               "    push "+strArg3+"\n"+
-                               "    call s_input ; INPUT STRING\n"+
-                               "    mov     ecx,    MsgLidos1 ; Inicio msg quantidade bytes lidos\n"+
-                               "    mov     edx,    LenMsgLidos1\n"+
-                               "    mov     ebx,    1\n"+
-                               "    int     0x80\n"+
-                               "    call impQtdBytes; funcao imprimi valor que esta como resultado na pilha\n"
-                               "    mov     ecx,    MsgLidos2 ;\n"+
-                               "    mov     edx,    LenMsgLidos2\n"+
-                               "    mov     ebx,    1\n"+
-                               "    int     0x80\n"+
-                               "    add     ebp, 4 ; Desempilho o resultado\n\n");
+        case 15: //call SINPUT
+            vecSaida.push_back("    push dword "+strArg2+"\n    push dword "+strArg3.substr(4, strArg3.size()-1)+"\n    call sinput\n    call impQtdBytes\n\n");
             break;
         case 16:
-             vecSaida.push_back("    push "+strArg2+"\n"+
-                                "    push "+strArg3+"\n"+
-                                "    call s_output ; INPUT STRING\n"+
-                                "    mov     ecx, MsgLidos1 ; Inicio msg quantidade bytes escritos\n"+
-                                "    mov     edx, LenMsgLidos1\n"+
-                                "    mov     ebx, 1\n"+
-                                "    int     0x80\n"+
-                                "    call impQtdBytes; funcao imprimi valor que esta como resultado na pilha\n"
-                                "    mov     ecx, MsgLidos2 ;\n"+
-                                "    mov     edx, LenMsgLidos2\n"+
-                                "    mov     ebx, 1\n"+
-                                "    int     0x80\n"+
-                                "    add     ebp, 4 ; Desempilho o resultado\n\n");
+            vecSaida.push_back("    push dword "+strArg2+"\n    push dword "+strArg3.substr(4, strArg3.size()-1)+"\n    call soutput\n    call lineFeedF\n    call impQtdBytes\n\n");
             break;
       }
 
@@ -130,6 +152,16 @@ vector<string> sectionBssHandle (vector<string> vecSaida,int ind, int arg1){
     return vecSaida;
 }
 
+//Função para gerar seção .bss com SPACE X
+vector<string> sectionBssHandleX (vector<string> vecSaida,int ind, int arg1){
+    string strArg1 = convIntStr(ind);
+    string strArg2 = convIntStr(arg1);
+    strArg1 = "     "+strArg1 + " resb " +strArg2.substr(4, strArg2.size()-1)+"\n";
+    vecSaida.push_back(strArg1);
+
+    return vecSaida;
+}
+
 //Função insere as funções desenvolvidas em x86
 vector<string> insereBaseIO(){
     //abro arquivo
@@ -140,7 +172,7 @@ vector<string> insereBaseIO(){
 
     //casonão seja possível abrir o arquivo 1
         if(!arq1){
-            cout<<"Arquivo de arquivo nao encontrado: "<< str_arq1 << endl;
+            cout<<"Arquivo de funcoes nao encontrado: "<< str_arq1 << endl;
             exit(-1);
         }
 
@@ -155,3 +187,5 @@ vector<string> insereBaseIO(){
 
     return arq1_vector;
 }
+
+

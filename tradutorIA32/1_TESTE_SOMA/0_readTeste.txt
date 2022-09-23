@@ -1,0 +1,61 @@
+Teste utilizando plataforma online de compilação NASM para x86.
+Copiando o código do arquivo gerado (soma.s) rodando com os inputs a baixo.
+
+O teste do funcionamento do código objeto (soma.obj) pode ser feito utilizando o simulador fornecido no primeiro trabalho.
+
+Chamada do tradutorIA32:
+	.\tradutoIA32.exe soma.obj
+Gera o arquivo:
+	soma.s
+
+Arquivo recebe dois números e soma os dois imprimindo o resuldado. 
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE1:
+INPUT:
+20
+30
+
+SAIDA:
+Foram lidos/escritos 2 bytes
+Foram lidos/escritos 2 bytes
+50
+Foram lidos/escritos 2 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE2:
+INPUT:
+-20
+30
+
+SAIDA:
+Foram lidos/escritos 3 bytes
+Foram lidos/escritos 2 bytes
+10
+Foram lidos/escritos 2 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE3:
+INPUT:
+-20
+-30
+
+SAIDA:
+Foram lidos/escritos 3 bytes
+Foram lidos/escritos 3 bytes
+-50
+Foram lidos/escritos 3 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE4:
+INPUT:
+500001
+500000
+
+SAIDA:
+Foram lidos/escritos 6 bytes
+Foram lidos/escritos 6 bytes
+1000001
+Foram lidos/escritos 7 bytes
+
+TESTES BEM SUCEDIDOS. 

@@ -1,0 +1,85 @@
+Teste utilizando plataforma online de compilação NASM para x86.
+Copiando o código do arquivo gerado (operacoes.s) rodando com os inputs a baixo.
+
+O teste do funcionamento do código objeto (operacoes.obj) pode ser feito utilizando o simulador fornecido no primeiro trabalho.
+
+Chamada do tradutorIA32:
+	.\tradutoIA32.exe operacoes.obj
+Gera o arquivo:
+	operacoes.s
+
+Arquivo recebe dois números e realiza as quatro operacoes basicas com eles. 
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE1:
+INPUT:
+20
+30
+
+SAIDA:
+Foram lidos/escritos 2 bytes
+Foram lidos/escritos 2 bytes
+50
+Foram lidos/escritos 2 bytes
+-10
+Foram lidos/escritos 3 bytes
+600
+Foram lidos/escritos 3 bytes
+0
+Foram lidos/escritos 1 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE2:
+INPUT:
+30
+-20
+
+SAIDA:
+Foram lidos/escritos 2 bytes
+Foram lidos/escritos 3 bytes
+10
+Foram lidos/escritos 2 bytes
+50
+Foram lidos/escritos 2 bytes
+-600
+Foram lidos/escritos 4 bytes
+-1
+Foram lidos/escritos 2 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE3:
+INPUT:
+10
+2
+
+SAIDA:
+Foram lidos/escritos 2 bytes
+Foram lidos/escritos 1 bytes
+12
+Foram lidos/escritos 2 bytes
+8
+Foram lidos/escritos 1 bytes
+20
+Foram lidos/escritos 2 bytes
+5
+Foram lidos/escritos 1 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE4:
+INPUT:
+10000
+1
+
+SAIDA:
+Foram lidos/escritos 5 bytes
+Foram lidos/escritos 1 bytes
+10001
+Foram lidos/escritos 5 bytes
+9999
+Foram lidos/escritos 4 bytes
+10000
+Foram lidos/escritos 5 bytes
+10000
+Foram lidos/escritos 5 bytes
+
+TESTES BEM SUCEDIDOS. 

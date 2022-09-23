@@ -248,3 +248,91 @@ sinput:
     pop     ebp
     ret     
 ;;;;;FIM sinput
+
+
+_start:
+
+    call input
+    mov [VAR_37], ebx
+    call impQtdBytes
+
+    call input
+    mov [VAR_38], ebx
+    call impQtdBytes
+
+    mov edx, [VAR_37] ; LOAD
+
+    add edx, [VAR_38] ; ADD
+
+    mov [VAR_39], edx ;STORE
+
+    push dword [VAR_39]
+    call output
+    call lineFeedF
+    call impQtdBytes
+
+    mov edx, [VAR_37] ; LOAD
+
+    sub edx, [VAR_38] ; SUB
+
+    mov [VAR_39], edx ;STORE
+
+    push dword [VAR_39]
+    call output
+    call lineFeedF
+    call impQtdBytes
+
+    mov edx, [VAR_37] ; LOAD
+
+    mov eax, edx
+    mov ebx, [VAR_38]
+    mul ebx
+    mov edx, eax ; MUL
+
+    mov [VAR_39], edx ;STORE
+
+    push dword [VAR_39]
+    call output
+    call lineFeedF
+    call impQtdBytes
+
+    mov edx, [VAR_37] ; LOAD
+
+    mov eax, edx
+    mov ebx, [VAR_38]
+    xor edx, edx
+    idiv ebx
+    mov edx, eax ; DIV
+
+    mov [VAR_39], edx ;STORE
+
+    push dword [VAR_39]
+    call output
+    call lineFeedF
+    call impQtdBytes
+
+
+    mov ebx, 0
+    mov eax, 1
+    int 0x80 ; STOP
+
+section .data ; CONST
+
+     MsgLidos1 db "Foram lidos/escritos "
+     lenMsgLidos1 equ $ - MsgLidos1
+     MsgLidos2 db " bytes", 0dH, 0aH 
+     lenMsgLidos2 equ $ - MsgLidos2
+     lineFeed   db 0dH, 0aH
+     lenLineFeed equ $ - lineFeed
+
+section .bss ; SPACE
+     VAR_37 resd 1
+     VAR_38 resd 1
+     VAR_39 resd 1
+
+     ind   resb 1        ;utilizado para o indice dos loops
+     temp    resd 1      ;utilizado para impressão leitura temporaria
+     valorOutput resd 1  ;utilizado para valores na escrita;
+     valorInput resd 1   ;utilizado para valores da leitura
+     buffer   resd 20     ;espaço extra para mostrar números grandes e strings
+

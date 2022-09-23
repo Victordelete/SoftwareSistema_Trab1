@@ -1,0 +1,61 @@
+Teste utilizando plataforma online de compilação NASM para x86.
+Copiando o código do arquivo gerado (triangulo.s) rodando com os inputs a baixo.
+
+O teste do funcionamento do código objeto (triangulo.obj) pode ser feito utilizando o simulador fornecido no primeiro trabalho.
+
+Chamada do tradutorIA32:
+	.\tradutoIA32.exe triangulo.obj
+Gera o arquivo:
+	triangulo.s
+
+Arquivo recebe dois números (base, altura) e retorna o produto deles dividido por 2. Arés de uma triangulo.  
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE1:
+INPUT:
+20
+30
+
+SAIDA:
+Foram lidos/escritos 2 bytes
+Foram lidos/escritos 2 bytes
+300
+Foram lidos/escritos 3 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE2:
+INPUT:
+30
+20
+
+SAIDA:
+Foram lidos/escritos 2 bytes
+Foram lidos/escritos 2 bytes
+300
+Foram lidos/escritos 3 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE3:
+INPUT:
+3000
+5000
+
+SAIDA:
+Foram lidos/escritos 4 bytes
+Foram lidos/escritos 4 bytes
+7500000
+Foram lidos/escritos 7 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE4:
+INPUT:
+31415
+1
+
+SAIDA:
+Foram lidos/escritos 5 bytes
+Foram lidos/escritos 1 bytes
+15707
+Foram lidos/escritos 5 bytes
+
+TESTES BEM SUCEDIDOS. 

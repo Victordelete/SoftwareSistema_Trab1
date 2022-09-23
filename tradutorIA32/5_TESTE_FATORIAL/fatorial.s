@@ -2,6 +2,7 @@ section .text
 
 global _start
 
+;-------------------------------------------------------------------------------
 ;;;;;OUTPUT INICIO
 
 output:
@@ -36,7 +37,7 @@ output:
     
     xor     ecx, ecx ;; zero o meu contador
 
-    output_loop: ; Loop principal da funÃ§Ã£o OUTPUT
+    output_loop: ; Loop principal da funcao OUTPUT
         xor     edx, edx          ; edx = 0
         mov     eax, dword [valorOutput]; valor para 
         mov     ebx, dword 10   ; divisor
@@ -56,7 +57,7 @@ output:
         sub     ecx, dword 1    ;corrigindo ultima soma excesso
         add     [valorInput], ecx
         
-    output_saida: ; Loop secundÃ¡rio da funÃ§Ã£o OUTPUT
+    output_saida: ; Loop secundario da funcao OUTPUT
         push    ecx
         
         mov     edx, [buffer+ecx]
@@ -66,7 +67,7 @@ output:
         mov     edx, 1
         mov     ebx, 1 
         mov     eax, 4 
-        int     0x80             ;imprimir resultad
+        int     0x80             ;imprimir resultado
         
         pop     ecx
         sub     ecx, dword 1
@@ -83,6 +84,7 @@ output:
     ret     4
 ;;;;;OUTPUT FINAL
 
+;-------------------------------------------------------------------------------
 ;;;;;INICIO INPUT
 input:
     push    ebp
@@ -91,18 +93,19 @@ input:
     mov     [ind], dword 0
     mov     [valorInput], dword 0 ; zerando entradas iniciais
     mov     [valorOutput], dword 0; indice de saida
+    mov     [buffer+4], dword 0   ;zerando indice 
     
     mov     ecx, buffer
     mov     edx, 1
     mov     ebx, 0
     mov     eax, 3
-    int     0x80        ;Leio um nÃºmero
+    int     0x80        ;Leio um numero
     
     cmp     [buffer], dword 45       ;comparo com menos '-'
-    jne     input_loopIf
+    jne     input_loopIf            ;se não negativo continuo 
     
     mov     [buffer+4], dword 1
-    add     [valorOutput], dword 1
+    add     [valorOutput], dword 1  ; em caso negativo eu seto representa negativo e adiciono 1 ao indice
     
     input_loop:
         
@@ -110,18 +113,18 @@ input:
         mov     edx, 1
         mov     ebx, 0
         mov     eax, 3
-        int     0x80        ;Leio um nÃºmero
+        int     0x80        ;Leio um numero
         input_loopIf:
         
         cmp     [buffer], dword 10
         je      inputFim        ; comparo com enter se true fim
         
-        sub     [buffer], dword '0'
+        sub     [buffer], dword '0' ; transformo para número
         
         mov     eax, [buffer]
-        add     eax, [valorInput]
+        add     eax, [valorInput]   ;
         
-        mov     ebx, dword 10
+        mov     ebx, dword 10       ;multiplico o parcial por 10
         mul     ebx
         
         mov     [valorInput], eax
@@ -134,12 +137,12 @@ input:
         xor     edx, edx
         mov     eax, [valorInput]
         mov     ebx, dword 10
-        div     ebx
+        div     ebx             ;corrijo o indice final dividindo por 10
         
-        mov     [valorInput], eax
+        mov     [valorInput], eax   ;guardo o valor gerado
         
     signalHandle:
-        cmp     [buffer+4], dword 1      ;regiÃ£o de memÃ³ria usado como buffer de entrada e de saÃ­da
+        cmp     [buffer+4], dword 1      ;registro de memoria usado como buffer de entrada e de saida
         jne     inputSaida
         mov     eax, [valorInput]
         neg     eax
@@ -147,13 +150,14 @@ input:
     
     inputSaida:
         mov     eax, [ind]
-        add     eax, [valorOutput]
-        mov     ebx, [valorInput]
+        add     eax, [valorOutput]      ;saldo o indice em eax
+        mov     ebx, [valorInput]       ;salvo o valor lido em 
         
     pop     ebp
-    ret
+    ret     4
 ;;;;;SAIDA INPUT
 
+;-------------------------------------------------------------------------------
 ;;;;;INICIO impQtdBytes
 impQtdBytes:
     push    ebp
@@ -179,6 +183,7 @@ impQtdBytes:
     ret
 ;;;;;SAIDA impQtdBytes
 
+;-------------------------------------------------------------------------------
 ;;;;;INICIO linefeed
 lineFeedF: 
     push    ebp
@@ -198,28 +203,82 @@ lineFeedF:
     ret
 ;;;;;FIM lineFeedF
 
+;-------------------------------------------------------------------------------
+;;;;;INICIO s_output
+soutput:
+    push    ebp
+    mov     ebp, esp ;salvando o contexto da pilha
+    
+        mov     eax, dword [ebp+8]
+        mov     [ind], eax          ; indice de quantos bytes ler
+        
+        mov     eax, dword [ebp+12]
+        
+        mov     ecx, eax
+        mov     edx, [ind]
+        mov     ebx, 1 
+        mov     eax, 4 
+        int     0x80             ;imprimir resultad
+    
+    mov     eax, [ind]
+    
+    pop     ebp
+    ret     
+;;;;;FIM s_output
+
+;-------------------------------------------------------------------------------
+;;;;;INICIO sinput
+sinput:
+    push    ebp
+    mov     ebp, esp ;salvando o contexto da pilha
+    
+        mov     eax, dword [ebp+8]
+        mov     [ind], eax          ; indice de quantos bytes ler
+        
+        mov     eax, dword [ebp+12]
+        
+        mov     ecx, eax
+        mov     edx, [ind]
+        mov     ebx, 0 
+        mov     eax, 3 
+        int     0x80             ;imprimir resultado
+    
+    mov     eax, [ind]
+
+    pop     ebp
+    ret     
+;;;;;FIM sinput
+
 
 _start:
 
     call input
-    mov [VAR_13], ebx
+    mov [VAR_22], ebx
     call impQtdBytes
 
-    call input
-    mov [VAR_14], ebx
-    call impQtdBytes
+    mov eax, [VAR_24]
+    mov [VAR_23], EAX  ;COPY
 
-    mov edx, [VAR_13] ; LOAD
+LABEL_5:
+    mov edx, [VAR_22] ; LOAD
 
     mov eax, edx
-    mov ebx, [VAR_14]
-    xor edx, edx
-    idiv ebx
-    mov edx, eax ; DIV
+    mov ebx, [VAR_23]
+    mul ebx
+    mov edx, eax ; MUL
 
-    mov [VAR_15], edx ;STORE
+    mov [VAR_23], edx ;STORE
 
-    push dword [VAR_15]
+    mov edx, [VAR_22] ; LOAD
+
+    sub edx, [VAR_24] ; SUB
+
+    mov [VAR_22], edx ;STORE
+
+    cmp edx, dword 0
+    jg LABEL_5
+
+    push dword [VAR_23]
     call output
     call lineFeedF
     call impQtdBytes
@@ -230,6 +289,7 @@ _start:
     int 0x80 ; STOP
 
 section .data ; CONST
+     VAR_24 dd 1
 
      MsgLidos1 db "Foram lidos/escritos "
      lenMsgLidos1 equ $ - MsgLidos1
@@ -239,9 +299,8 @@ section .data ; CONST
      lenLineFeed equ $ - lineFeed
 
 section .bss ; SPACE
-     VAR_13 resd 1
-     VAR_14 resd 1
-     VAR_15 resd 1
+     VAR_22 resd 1
+     VAR_23 resd 1
 
      ind   resb 1        ;utilizado para o indice dos loops
      temp    resd 1      ;utilizado para impress�o leitura temporaria

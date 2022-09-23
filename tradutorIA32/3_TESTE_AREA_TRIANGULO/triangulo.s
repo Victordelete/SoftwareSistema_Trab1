@@ -248,3 +248,61 @@ sinput:
     pop     ebp
     ret     
 ;;;;;FIM sinput
+
+
+_start:
+
+    call input
+    mov [VAR_15], ebx
+    call impQtdBytes
+
+    call input
+    mov [VAR_16], ebx
+    call impQtdBytes
+
+    mov edx, [VAR_15] ; LOAD
+
+    mov eax, edx
+    mov ebx, [VAR_16]
+    mul ebx
+    mov edx, eax ; MUL
+
+    mov eax, edx
+    mov ebx, [VAR_17]
+    xor edx, edx
+    idiv ebx
+    mov edx, eax ; DIV
+
+    mov [VAR_18], edx ;STORE
+
+    push dword [VAR_18]
+    call output
+    call lineFeedF
+    call impQtdBytes
+
+
+    mov ebx, 0
+    mov eax, 1
+    int 0x80 ; STOP
+
+section .data ; CONST
+     VAR_17 dd 2
+
+     MsgLidos1 db "Foram lidos/escritos "
+     lenMsgLidos1 equ $ - MsgLidos1
+     MsgLidos2 db " bytes", 0dH, 0aH 
+     lenMsgLidos2 equ $ - MsgLidos2
+     lineFeed   db 0dH, 0aH
+     lenLineFeed equ $ - lineFeed
+
+section .bss ; SPACE
+     VAR_15 resd 1
+     VAR_16 resd 1
+     VAR_18 resd 1
+
+     ind   resb 1        ;utilizado para o indice dos loops
+     temp    resd 1      ;utilizado para impressão leitura temporaria
+     valorOutput resd 1  ;utilizado para valores na escrita;
+     valorInput resd 1   ;utilizado para valores da leitura
+     buffer   resd 20     ;espaço extra para mostrar números grandes e strings
+

@@ -6,7 +6,6 @@ na Universidade de Brasília.
 Tradutor de código máquina para IA32.
 
 Desenvolvedores:
-    Daniel do Carmo Figueirêdo -  160057922
     Victor Hugo Marques - 150047649
 
 */
@@ -20,19 +19,19 @@ Desenvolvedores:
 #include <fstream>
 using namespace std;
 
-int main( ){
+int main( int argc, char *argv[] ){
     //teste de arqumentos
-    /*if(argc < 3){
+    if(argc != 2){
         cout<<"Quantidade incorreta de argumentos.\n";
         return -1;
     }
 
     string str_arq1 = argv[1];
-    string str_arq2 = argv[2];
-    */
 
-    string str_arq1("arquivo.obj");
 
+/*int main( ){
+    string str_arq1("aaaaaa.obj");
+*/
     string line;
     vector<string> arq1_vector;
 

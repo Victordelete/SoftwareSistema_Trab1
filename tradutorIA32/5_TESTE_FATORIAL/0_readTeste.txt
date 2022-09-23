@@ -1,0 +1,53 @@
+Teste utilizando plataforma online de compilação NASM para x86.
+Copiando o código do arquivo gerado (fatorial.s) rodando com os inputs a baixo.
+
+O teste do funcionamento do código objeto (fatorial.obj) pode ser feito utilizando o simulador fornecido no primeiro trabalho.
+
+Chamada do tradutorIA32:
+	.\tradutoIA32.exe fatorial.obj
+Gera o arquivo:
+	fatorial.s
+
+Arquivo recebe 1 números e imprime seu fatorial. 
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE1:
+INPUT:
+1
+
+SAIDA:
+Foram lidos/escritos 1 bytes
+1
+Foram lidos/escritos 1 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE2:
+INPUT:
+3
+
+SAIDA:
+Foram lidos/escritos 1 bytes
+6
+Foram lidos/escritos 1 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE3:
+INPUT:
+5
+
+SAIDA:
+Foram lidos/escritos 1 bytes
+120
+Foram lidos/escritos 3 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE4:
+INPUT:
+10
+
+SAIDA:
+Foram lidos/escritos 2 bytes
+3628800
+Foram lidos/escritos 7 bytes
+
+TESTES BEM SUCEDIDOS. 

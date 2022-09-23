@@ -1,0 +1,103 @@
+Teste utilizando plataforma online de compilação NASM para x86.
+Copiando o código do arquivo gerado (fibonaci.s) rodando com os inputs a baixo.
+
+O teste do funcionamento do código objeto (fibonaci.obj) pode ser feito utilizando o simulador fornecido no primeiro trabalho.
+
+Chamada do tradutorIA32:
+	.\tradutoIA32.exe fatorial.obj
+Gera o arquivo:
+	fibonaci.s
+
+Arquivo recebe 1 números e imprime a serie de fibonaci até ele como limite. ele não incluso (menor não igual). 
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE1:
+INPUT:
+1
+
+SAIDA:
+Foram lidos/escritos 1 bytes
+1
+Foram lidos/escritos 1 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE2:
+INPUT:
+5
+
+SAIDA:
+Foram lidos/escritos 1 bytes
+1
+Foram lidos/escritos 1 bytes
+2
+Foram lidos/escritos 1 bytes
+3
+Foram lidos/escritos 1 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE3:
+INPUT:
+20
+
+SAIDA:
+Foram lidos/escritos 2 bytes
+1
+Foram lidos/escritos 1 bytes
+2
+Foram lidos/escritos 1 bytes
+3
+Foram lidos/escritos 1 bytes
+5
+Foram lidos/escritos 1 bytes
+8
+Foram lidos/escritos 1 bytes
+13
+Foram lidos/escritos 2 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE4:
+INPUT:
+10000
+
+SAIDA:
+Foram lidos/escritos 5 bytes
+1
+Foram lidos/escritos 1 bytes
+2
+Foram lidos/escritos 1 bytes
+3
+Foram lidos/escritos 1 bytes
+5
+Foram lidos/escritos 1 bytes
+8
+Foram lidos/escritos 1 bytes
+13
+Foram lidos/escritos 2 bytes
+21
+Foram lidos/escritos 2 bytes
+34
+Foram lidos/escritos 2 bytes
+55
+Foram lidos/escritos 2 bytes
+89
+Foram lidos/escritos 2 bytes
+144
+Foram lidos/escritos 3 bytes
+233
+Foram lidos/escritos 3 bytes
+377
+Foram lidos/escritos 3 bytes
+610
+Foram lidos/escritos 3 bytes
+987
+Foram lidos/escritos 3 bytes
+1597
+Foram lidos/escritos 4 bytes
+2584
+Foram lidos/escritos 4 bytes
+4181
+Foram lidos/escritos 4 bytes
+6765
+Foram lidos/escritos 4 bytes
+
+TESTES BEM SUCEDIDOS. 

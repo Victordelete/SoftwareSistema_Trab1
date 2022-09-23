@@ -1,0 +1,38 @@
+Teste utilizando plataforma online de compilação NASM para x86.
+Copiando o código do arquivo gerado (stringTest.s) rodando com os inputs a baixo.
+
+Este passo não pode ser simulado pois implementa funções não previstas no simulador do assembly inventado. 
+
+Chamada do tradutorIA32:
+	.\tradutoIA32.exe stringTest.obj
+Gera o arquivo:
+	stringTest.s
+
+Arquivo recebe dois números e soma os dois imprimindo o resuldado. 
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE1:
+INPUT:
+victoteste
+
+SAIDA:
+Foram lidos/escritos 5 bytes
+Foram lidos/escritos 5 bytes
+victo
+Foram lidos/escritos 5 bytes
+
+test
+Foram lidos/escritos 5 bytes
+
+;;;;;;;;;;;;;;;;;;;;;
+TESTE2:
+INPUT:
+str20str21
+
+SAIDA:
+Foram lidos/escritos 5 bytes
+Foram lidos/escritos 5 bytes
+str20
+Foram lidos/escritos 5 bytes
+str21
+Foram lidos/escritos 5 bytes
